@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123f69">
+  <title>SAKTI GEN-AI — Petualangan Negeri Ceria</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game" id="game">
+    <div class="scene-bg"></div><div class="shade"></div>
+    <div class="stars" aria-hidden="true"></div>
+    <header class="topbar"><img class="logo" src="assets/images/buttons/logo-sakti-gen-ai.png" alt="SAKTI GEN-AI"><div class="sound-controls"><button id="musicToggle" aria-label="Musik OFF" aria-pressed="false" title="Musik latar">♫ <span>Musik OFF</span></button><button id="soundToggle" aria-label="Suara ON" aria-pressed="true" title="Suara">🔊 <span>Suara ON</span></button><button id="fullscreenToggle" aria-label="Layar penuh" aria-pressed="false" title="Layar penuh">⛶ <span>Layar penuh</span></button></div></header>
+    <section class="screen opening" id="opening">
+      <div class="copy"><p class="eyebrow">✨ SIAP UNTUK PETUALANGAN BARU?</p><h1>SAKTI <span>GEN-AI</span></h1><h2>PETUALANGAN<br>NEGERI CERIA</h2><p class="tagline">Berpetualang dan Belajar<br>Bersama SAGI.</p><button class="start" id="startButton"><span>▶</span> MULAI PETUALANGAN</button><p class="hint">Ayo, kita jelajahi dunia penuh keajaiban!</p></div>
+      <div class="friends-wrap"><div class="aura"></div><img class="friends" src="assets/images/characters/sagi-and-friends.png" alt="SAGI dan teman-teman"></div>
+    </section>
+    <section class="screen opening-video hidden" id="openingVideoView" aria-label="Video pembuka">
+      <video id="openingVideo" src="assets/videos/vid-opening.mp4" preload="metadata" playsinline></video>
+      <button id="openingVideoBack" class="opening-video-back" type="button" aria-label="Kembali ke menu"><img src="assets/images/buttons/btn-kembali.png" alt=""></button>
+      <button id="openingVideoPlay" class="back-button" type="button" hidden>Putar video</button>
+      <p id="openingVideoStatus" role="status"></p>
+    </section>
+    <section class="screen menu hidden" id="menu" aria-labelledby="menuTitle"><div class="menu-card"><p class="eyebrow">🌈 SELAMAT DATANG DI NEGERI CERIA!</p><h1 id="menuTitle" tabindex="-1">Halo, Sahabat!</h1><p class="menu-lead">Berpetualang dan Belajar Bersama SAGI</p><img class="menu-friends" src="assets/images/characters/sagi-lambai-tangan.png" alt="SAGI melambaikan tangan"><nav class="menu-actions" aria-label="Menu utama">
+      <button class="asset-option" id="videoButton"><img src="assets/images/buttons/btn-video-sagi.png" alt=""><span>VIDEO SAGI</span></button>
+      <button class="asset-option" id="learnButton"><img src="assets/images/buttons/btn-materi.png" alt=""><span>YUK BELAJAR</span></button>
+      <button class="asset-option" id="mapButton"><img src="assets/images/buttons/btn-peta-petualangan.png" alt=""><span>PETA PETUALANGAN</span></button>
+      <button class="asset-option" id="reportButton"><img src="assets/images/buttons/btn-jejak-bintang-sakti.png" alt=""><span>LAPORAN MISI</span></button>
+      <button class="asset-option" id="infoButton"><img src="assets/images/buttons/btn-informasi.png" alt=""><span>INFO</span></button>
+    </nav><div class="minor-actions"><button class="menu-option" id="newPlayerButton" aria-label="AYO MULAI untuk pemain baru">AYO MULAI</button><button class="menu-option" id="greetingButton">Sapa SAGI</button><button class="menu-option" id="homeButton">Kembali ke pembuka</button></div></div></section>
+    <section class="screen detail hidden" id="detail" aria-labelledby="detailTitle"><div class="detail-card"><button class="back-button" id="backButton"><img src="assets/images/buttons/btn-back.png" alt="">Kembali ke menu</button><h1 id="detailTitle" tabindex="-1"></h1><div id="detailContent"></div></div></section>
+<section class="screen mission-report hidden" id="reportView" aria-labelledby="reportTitle">
+  <div class="mission-report-body">
+    <button class="back-button" id="reportBack" type="button"><img src="assets/images/buttons/btn-kembali.png" alt="">Kembali ke menu</button>
+    <h1 id="reportTitle" tabindex="-1">Laporan Petualangan SAKTI</h1>
+    <p class="report-total"><img src="assets/images/rewards/reward-bintang.png" alt=""><strong id="reportTotal"></strong></p>
+    <progress id="reportProgress" max="7" aria-label="Misi selesai"></progress>
+    <div id="reportMissions"></div>
+  </div>
+</section>
+<section class="screen image-view hidden" id="imageView" aria-label="Materi bergambar">
+<div class="image-viewport" id="imageViewport"><div class="image-canvas" id="imageCanvas">
+<img id="pageImage" alt="" draggable="false">
+<img id="imageSwipePreview" alt="" draggable="false" aria-hidden="true" hidden>
+<button class="image-hotspot" id="imageHomeHotspot" aria-label="HOME — Menu utama"></button>
+<button class="image-hotspot" id="imageBackHotspot" aria-label="Kembali ke menu"></button>
+</div></div>
+<nav class="image-navigation" aria-label="Navigasi materi">
+<button class="image-nav-icon" id="imageHome" aria-label="HOME — Menu utama"><img src="assets/images/buttons/btn-home.png" alt=""></button>
+<button class="image-nav-icon" id="imageBack" aria-label="Kembali ke menu"><img src="assets/images/buttons/btn-back.png" alt=""></button>
+<button class="image-nav-icon" id="imagePrevious" aria-label="Materi sebelumnya"><img src="assets/images/buttons/btn-back.png" alt=""></button>
+<button class="image-nav-icon" id="imageNext" aria-label="Materi berikutnya"><img src="assets/images/buttons/btn-next.png" alt=""></button>
+</nav></section>
+<section class="screen atlas-view hidden" id="atlasView" aria-label="Peta Petualangan" tabindex="-1">
+<button class="mission-collection-toggle" id="missionCollectionToggle" aria-label="Koleksi Bintang SAKTI" hidden><img src="assets/images/rewards/reward-bintang.png" alt=""><span id="missionCollectionCount">0/7</span></button>
+<aside class="mission-collection" id="missionCollection" aria-labelledby="missionCollectionTitle" hidden><h2 id="missionCollectionTitle">Koleksi Bintang SAKTI</h2><p id="missionCollectionTotal">Total Bintang SAKTI: 0/7</p><ol id="missionCollectionList"></ol><div class="collection-activities" id="missionCollectionActivities"></div><div class="collection-actions"><button id="missionReplay" hidden>MAIN LAGI MISI 1</button><button id="missionCollectionClose">TUTUP</button></div></aside>
+<div class="atlas-canvas" id="atlasCanvas">
+<img id="atlasImage" alt="Peta Petualangan" draggable="false">
+<div id="atlasDecor" class="atlas-decor" aria-hidden="true" hidden>
+  <svg viewBox="0 0 900 506" preserveAspectRatio="none" focusable="false">
+    <path class="atlas-trail" d="M 267,197 Q 303,255 345,249 M 554,249 Q 604,252 635,196"/>
+    <path class="atlas-trail atlas-shimmer" d="M 267,197 Q 303,255 345,249 M 554,249 Q 604,252 635,196"/>
+    <path class="atlas-trail-spark" d="M 293,225 l 2,4 4,2 -4,2 -2,4 -2,-4 -4,-2 4,-2 Z M 611,225 l 2,4 4,2 -4,2 -2,4 -2,-4 -4,-2 4,-2 Z"/>
+  </svg>
+  <div id="atlasStars"></div>
+</div>
+<nav class="morning-missions" id="morningMissions" aria-label="Misi Pulau Pagi Ceria" hidden>
+<button class="morning-card" id="missionOne" aria-label="Buka Misi 1: Bangun Pagi"><img src="assets/images/mission-cards/mission-01-bangun-pagi.png" alt="Misi 1 — Bangun Pagi" draggable="false"></button>
+<button class="morning-card" id="missionTwo" aria-label="Buka Misi 2: Beribadah"><img src="assets/images/mission-cards/mission-02-beribadah.png" alt="Misi 2 — Beribadah" draggable="false"></button>
+<button class="morning-card" id="missionThree" aria-label="Buka Misi 3: Berolahraga"><img src="assets/images/mission-cards/mission-03-berolahraga.png" alt="Misi 3 — Berolahraga" draggable="false"></button>
+</nav>
+<section class="morning-intro" id="morningIntro" aria-labelledby="morningIntroTitle" hidden>
+<div><h1 id="morningIntroTitle" tabindex="-1"></h1><p id="morningIntroText"></p><p>Permainan misi ini akan tersedia pada tahap berikutnya.</p><button id="morningIntroBack">Kembali ke Pulau Pagi Ceria</button></div>
+</section>
+
+<nav class="morning-missions" id="learningMissions" aria-label="Misi Pulau Ilmu Ajaib" hidden></nav>
+<nav class="morning-missions" id="friendshipMissions" aria-label="Misi Pulau Sahabat Hebat" hidden></nav>
+<button class="island-hotspot" id="morningIsland" aria-label="Buka Pulau Pagi Ceria"></button>
+<button class="island-hotspot" id="learningIsland" aria-label="Buka Pulau Ilmu Ajaib"></button>
+<button class="island-hotspot" id="friendshipIsland" aria-label="Buka Pulau Sahabat Hebat"></button>
+</div>
+<nav class="atlas-controls" aria-label="Navigasi peta">
+<button class="atlas-icon" id="atlasBack" aria-label="Kembali ke peta" hidden><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M18 6L8 16l10 10M8 16h19" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<button class="atlas-icon" id="atlasHome" aria-label="HOME — Menu utama"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 15L16 4l12 11M8 13v15h6v-9h5v9h6V13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<button class="atlas-icon" id="atlasFullscreen" aria-label="Layar penuh" aria-pressed="false">⛶</button>
+</nav></section>
+<section class="screen maze-screen hidden" id="mazeView" aria-labelledby="mazeTitle">
+ <header class="maze-header"><button id="mazeBack" aria-label="Kembali ke Pulau Pagi Ceria">↩</button><h1 id="mazeTitle" tabindex="-1"><img class="maze-title-sign" src="assets/images/missions/mission-01-bangun-pagi/maze/guide/sign-labirin-jejak-pagi.png" alt="Labirin Jejak Cahaya Pagi"></h1><button id="mazeSound" aria-label="Suara ON" aria-pressed="true">🔊</button><button id="mazeFullscreen" aria-label="Layar penuh">⛶</button></header>
+ <div class="maze-layout">
+  <div class="maze-board-area"><div class="maze-board" id="mazeBoard" role="img" aria-label="Jalan petualangan dari START menuju tujuan akhir">
+   <div class="maze-grid" id="mazeGrid"></div>
+   <div class="maze-player" id="mazePlayer"><div class="bimo-crop"><img src="assets/images/missions/mission-01-bangun-pagi/maze/characters/bimo-berjalan.png" alt="Bimo" draggable="false"></div></div>
+  </div></div>
+  <aside class="maze-guide"><div class="maze-sagi-row"><img class="maze-sagi" src="assets/images/missions/mission-01-bangun-pagi/maze/characters/sagi-berjalan.png" alt="SAGI" draggable="false"><div class="maze-dialog"><p id="mazeInstruction" aria-live="polite"></p><strong id="mazeCounter" aria-label="Langkah selesai">0/3</strong><p id="mazeHint" role="status">Tekan satu kali untuk satu langkah.</p></div></div>
+   <div class="maze-dpad" id="mazeDpad" aria-label="Tombol arah">
+    <button id="mazeUp" data-direction="up" aria-label="Atas"><img src="assets/images/missions/mission-01-bangun-pagi/maze/button/btn-up.png" alt="" draggable="false"></button>
+    <button id="mazeLeft" data-direction="left" aria-label="Kiri"><img src="assets/images/missions/mission-01-bangun-pagi/maze/button/btn-left.png" alt="" draggable="false"></button>
+    <button id="mazeDown" data-direction="down" aria-label="Bawah"><img src="assets/images/missions/mission-01-bangun-pagi/maze/button/btn-down.png" alt="" draggable="false"></button>
+    <button id="mazeRight" data-direction="right" aria-label="Kanan"><img src="assets/images/missions/mission-01-bangun-pagi/maze/button/btn-right.png" alt="" draggable="false"></button>
+   </div>
+   <div class="maze-victory" id="mazeVictory" hidden><img class="maze-star" src="assets/images/rewards/reward-bintang.png" alt="Bintang keberhasilan"><p>Yeay! Kamu hebat! Kita berhasil sampai di tujuan!</p><button id="mazePuzzle">LANJUT PETUALANGAN</button><p id="mazePuzzleNote" role="status" hidden>Puzzle Pagi sudah selesai. Tantangan berikutnya sedang disiapkan.</p></div>
+   <button class="maze-retry" id="mazeRetry">Ulangi labirin</button>
+  </aside>
+ </div>
+</section>
+
+<section class="screen puzzle-screen morning-art-screen hidden" id="puzzleView" aria-labelledby="puzzleTitle">
+  <div class="morning-art puzzle-art" id="puzzleArt">
+    <h1 id="puzzleTitle" class="morning-sr" tabindex="-1">Puzzle Pagi Ajaib</h1>
+    <button id="puzzleHome" class="morning-hotspot morning-home" aria-label="Home · Menu Utama"></button>
+    <button id="puzzleBack" class="morning-hotspot morning-back" aria-label="Kembali ke labirin"></button>
+    <div id="puzzleBoard" class="puzzle-placement-board">
+      <img id="puzzleHintImage" src="assets/images/missions/mission-01-bangun-pagi/puzzle/illustrations/puzzle-bangun-pagi.png" alt="" draggable="false">
+      <div id="puzzleSlots" aria-label="Empat kotak puzzle"></div>
+      <img id="puzzleWhole" class="puzzle-whole" src="assets/images/missions/mission-01-bangun-pagi/puzzle/illustrations/puzzle-bangun-pagi.png" alt="Gambar pagi yang sudah tersusun" hidden>
+      <div id="puzzleConfetti" class="puzzle-confetti" aria-hidden="true"></div>
+    </div>
+    <div id="puzzlePieces" aria-label="Empat keping puzzle"></div>
+    <p id="puzzleDialog" class="morning-status" role="status"></p>
+    <p id="puzzleSaveNote" class="morning-sr" hidden>Progres tersedia selama halaman terbuka.</p>
+    <div id="puzzleWin" hidden><button id="puzzleContinue" class="morning-hotspot morning-next" aria-label="Lanjut ke Memory Game"></button></div>
+    <button id="puzzleRetry" class="morning-image-action" aria-label="Ulangi puzzle"><img src="assets/images/missions/mission-01-bangun-pagi/btn-coba-lagi.png" alt=""></button>
+    <div class="morning-settings"><button id="puzzleSound" aria-label="Suara ON" aria-pressed="true">🔊</button><button id="puzzleFullscreen" aria-label="Layar penuh">⛶</button></div>
+  </div>
+</section>
+
+<section class="screen memory-screen hidden" id="memoryView" aria-label="Memory Game Pasangan Pagi Ceria" tabindex="-1">
+ <div class="memory-canvas" id="memoryCanvas">
+  <img class="memory-background" id="memoryBackground" src="assets/images/missions/mission-01-bangun-pagi/memory/background/bg-memory-game.jpeg" alt="Pasangan Pagi Ceria. Petunjuk: klik dua kartu dengan gambar yang sama hingga semua pasangan ditemukan." draggable="false">
+  <div class="memory-grid" id="memoryGrid" role="group" aria-label="Enam kartu dalam tiga kolom dan dua baris"></div>
+  <p class="memory-dialog" id="memoryDialog" role="status" aria-live="polite"></p>
+  <div class="memory-progress" aria-label="Kemajuan pasangan"><strong id="memoryCounter">0/3</strong><img id="memoryReward" src="assets/images/rewards/reward-bintang.png" alt="Bintang keberhasilan" hidden></div>
+  <nav class="memory-nav" aria-label="Navigasi Memory Game"><button id="memoryBack">KEMBALI</button><button id="memoryRetry">ULANGI</button><button id="memoryContinue" hidden>LANJUT PETUALANGAN</button></nav>
+  <div class="memory-settings"><button id="memorySound" aria-label="Suara ON" aria-pressed="true">🔊</button><button id="memoryFullscreen" aria-label="Layar penuh">⛶</button></div>
+  <p class="memory-save-note" id="memorySaveNote" role="status" hidden>Progres tersedia selama halaman terbuka. Penyimpanan perangkat belum dapat digunakan.</p>
+  <div class="memory-confetti" id="memoryConfetti" aria-hidden="true"></div>
+ </div>
+</section>
+
+<section class="screen reflection-screen morning-art-screen hidden" id="reflectionView" aria-labelledby="reflectionTitle">
+ <div class="morning-art reflection-art" id="reflectionArt">
+  <h1 id="reflectionTitle" class="morning-sr" tabindex="-1">Urutkan Kegiatan Pagi</h1>
+  <button id="reflectionHome" class="morning-hotspot morning-home" aria-label="Home · Menu Utama"></button>
+  <button id="reflectionBack" class="morning-hotspot morning-back" aria-label="Kembali ke Memory Game"></button>
+  <div class="reflection-bank" id="reflectionBank" role="group" aria-label="Empat gambar kegiatan pagi yang dapat dipilih"></div>
+  <div class="reflection-slots" id="reflectionSlots" role="group" aria-label="Empat tempat urutan kegiatan"></div>
+  <p id="reflectionDialog" class="morning-status" role="status"></p>
+  <p id="reflectionSaveNote" class="morning-sr" hidden>Progres tersedia selama halaman terbuka.</p>
+  <button id="reflectionCheck" class="morning-hotspot morning-next" aria-label="Lanjut · Periksa urutan"></button>
+  <button id="reflectionRetry" class="morning-image-action" aria-label="Ulangi susunan"><img src="assets/images/missions/mission-01-bangun-pagi/btn-coba-lagi.png" alt=""></button>
+  <div class="morning-settings"><button id="reflectionSound" aria-label="Suara ON" aria-pressed="true">🔊</button><button id="reflectionFullscreen" aria-label="Layar penuh">⛶</button></div>
+  <img class="reflection-drag-ghost" id="reflectionDragGhost" alt="" hidden>
+ </div>
+</section>
+
+<section class="screen trophy-screen hidden" id="trophyView" aria-labelledby="trophyTitle" tabindex="-1">
+  <div class="trophy-content">
+    <h1 id="trophyTitle"><span>Selamat!</span>Kamu Pahlawan Hebat SAKTI!</h1>
+    <img class="trophy-art" src="assets/images/rewards/reward-piala-sakti.png" alt="Trofi emas SAKTI">
+    <div id="trophyStars" aria-label="Tujuh Bintang SAKTI"></div>
+    <p>Hebat! Kamu berhasil menyelesaikan 7 Misi Bintang SAKTI!</p>
+  </div>
+  <div class="mission-reward-fx" id="trophyFx" aria-hidden="true"></div>
+</section>
+<section class="screen mission-reward-screen hidden" id="missionRewardView" aria-label="Misi 1 berhasil" tabindex="-1">
+ <div class="mission-reward-area"><div class="mission-reward-canvas" id="missionRewardCanvas"><img id="missionRewardImage" src="assets/images/rewards/reward-misi-1-berhasil.jpeg" alt="Misi 1 berhasil! Hebat, kamu berhasil menyelesaikan Petualangan Bangun Pagi bersama SAGI, Bimo, Lala, dan Mimi."><div id="missionRewardFx" class="mission-reward-fx" aria-hidden="true"></div></div></div>
+ <div class="mission-reward-controls"><span id="missionRewardTotal" role="status"></span><button id="missionRewardBack" aria-label="Lanjutkan misi"><img src="assets/images/buttons/btn-lanjutkan-misi.png" alt=""></button></div>
+</section>
+
+
+<section class="screen activity-screen hidden" id="activityView" aria-labelledby="activityTitle">
+  <div class="activity-panel" id="activityPanel">
+    <header><button id="activityBack">Kembali ke pulau</button><h1 id="activityTitle" tabindex="-1"></h1><button id="activityFullscreen" aria-label="Layar penuh">⛶</button></header>
+    <h2 id="activityStage"></h2>
+    <p id="activityPrompt" tabindex="-1"></p>
+    <p class="activity-status"><strong id="activityCounter"></strong><span id="activityFeedback" role="status"></span></p>
+    <div class="activity-options" id="activityOptions"></div>
+    <div class="activity-actions"><button id="activityReward" hidden>Lihat reward</button><button id="activityRetry" hidden>Main lagi</button></div>
+  </div>
+
+  <section id="sportGame" class="sport-game" aria-labelledby="sportHeading" hidden>
+    <h1 id="sportHeading" tabindex="-1"></h1>
+    <button type="button" id="sportHome" class="sport-nav" aria-label="Ke Peta Petualangan"></button>
+    <button type="button" id="sportBack" class="sport-nav" aria-label="Kembali ke Pulau Pagi Ceria"></button>
+    <button type="button" id="sportFullscreen" aria-label="Layar penuh">⛶</button>
+    <output id="sportCount" aria-live="polite"></output>
+    <div id="sportBoard"></div>
+    <p id="sportInstruction"></p>
+    <div id="sportActions"></div>
+  </section>
+  <section id="kitchenGame" class="kitchen-game" aria-label="Misi 5: Makan Sehat dan Bergizi — Dapur Ajaib SAGI" hidden>
+    <h1 id="kitchenTitle" tabindex="-1"></h1>
+    <div id="kitchenBoard"></div>
+    <button id="kitchenHome" class="kitchen-nav" type="button" aria-label="Ke Peta Petualangan"><img src="assets/images/buttons/btn-home.png" alt=""></button>
+    <button id="kitchenBack" class="kitchen-nav" type="button" aria-label="Kembali ke Pulau Sahabat Hebat"><img src="assets/images/buttons/btn-back.png" alt=""></button>
+    <button id="kitchenFullscreen" class="kitchen-nav" type="button" aria-label="Layar penuh">⛶</button>
+    <p class="island-rotate">Putar perangkat ke posisi mendatar agar kartu lebih besar.</p>
+    <p id="kitchenHint"></p><output id="kitchenCount" aria-live="polite"></output>
+    <div class="kitchen-actions"><button id="kitchenReplay" type="button" aria-label="Coba lagi" hidden><img alt=""></button><button id="kitchenNext" type="button" hidden><img alt=""></button></div>
+  </section>
+  <section id="worshipMatch" class="worship-match" aria-labelledby="worshipHeading" hidden>
+    <h1 id="worshipHeading" tabindex="-1">Ayo, Pasangkan Gambar Ibadah!</h1>
+    <div class="worship-board" id="worshipBoard"></div>
+    <button id="worshipHome" class="worship-hotspot" type="button" aria-label="Ke Peta Petualangan"></button>
+    <button id="worshipBack" class="worship-hotspot" type="button" aria-label="Kembali ke Pulau Pagi Ceria"></button>
+    <button id="worshipPick" class="worship-hotspot" type="button" aria-label="Pilih gambar" hidden></button>
+    <output id="worshipCount" aria-live="polite"></output>
+    <button id="worshipNext" type="button" hidden><img src="assets/images/missions/mission-02-beribadah/btn-selesai.png" alt=""></button>
+  </section>
+  <div class="activity-panel book-panel" id="bookShelf" hidden>
+    <header><button id="bookShelfBack">Kembali ke pulau</button><h1 id="bookShelfTitle" tabindex="-1">Tiga Buku Ajaib</h1><span id="bookCounter"></span></header>
+    <p>Pilih buku yang ingin kamu jelajahi.</p>
+    <div class="activity-options book-choices" id="bookChoices"></div>
+    <div class="activity-actions"><button id="bookMainReward" hidden>Lihat reward Misi 4</button></div>
+  </div>
+  <section class="activity-panel book-panel book-game" id="bookGame" hidden>
+    <header>
+      <button type="button" id="bookGameBack">Kembali ke buku</button>
+      <h1 id="bookGameTitle" tabindex="-1"></h1>
+    </header>
+    <h2 id="bookGameStage"></h2>
+    <p id="bookGamePrompt"></p>
+    <div id="bookGameBoard" class="book-game-board"></div>
+    <p id="bookGameFeedback" role="status"></p>
+    <div class="activity-actions"><button type="button" id="bookGameNext" hidden></button></div>
+  </section>
+  <dialog id="bookAnswer" class="book-answer" aria-labelledby="bookAnswerText">
+    <img id="bookAnswerImage" alt="">
+    <p id="bookAnswerText"></p>
+    <button id="bookAnswerClose" type="button" autofocus></button>
+  </dialog>
+  <div class="activity-panel book-panel book-celebration" id="bookCelebration" hidden>
+    <div class="mission-reward-fx book-confetti" id="bookConfetti" aria-hidden="true"></div>
+    <img class="book-smile" src="assets/images/characters/sagi-jempol.png" alt="SAGI tersenyum lebar">
+    <h1>Buku selesai!</h1>
+    <p id="bookPraise" role="status"></p>
+    <p id="bookCelebrationCounter"></p>
+    <div class="activity-actions"><button id="bookContinue">LANJUT</button></div>
+  </div>
+</section>
+<dialog id="newPlayerDialog" class="new-player-dialog" aria-labelledby="newPlayerTitle" aria-describedby="newPlayerMessage">
+  <h2 id="newPlayerTitle">Mulai untuk anak berikutnya?</h2>
+  <p id="newPlayerMessage">Progres dan bintang pemain sebelumnya akan direset ke 0/7.</p>
+  <div><button id="cancelNewPlayer" autofocus>Batal</button><button id="confirmNewPlayer">Ya, mulai sesi baru</button></div>
+</dialog>
+    <div class="greeting hidden" id="greeting" role="status">Hai, Sahabat! Aku SAGI. Yuk, kita berpetualang bersama! ✨</div>
+    <footer>SAKTI GEN-AI <span>•</span> BELAJAR SAMBIL BERMAIN</footer>
+    <audio id="welcomeAudio" src="assets/audio/sagi-welcome.mp3" preload="auto"></audio><audio id="greetingAudio" src="assets/audio/sagi-greeting.mp3" preload="auto"></audio>
+  <nav class="adventure-nav" id="adventureNav" aria-label="Navigasi petualangan" hidden>
+  <button type="button" id="adventureHome" aria-label="Home · Menu Utama"><img src="assets/images/buttons/btn-home.png" alt=""></button>
+  <button type="button" id="adventureBack" aria-label="Kembali"><img src="assets/images/buttons/btn-kembali.png" alt=""></button>
+</nav>
+<button id="learningInfoButton" class="learning-info-trigger" type="button" aria-label="Informasi pembelajaran" hidden>
+  <img src="assets/images/buttons/btn-info-cptp-game.png" alt="">
+</button>
+<dialog id="learningInfoDialog" class="learning-info-dialog" aria-labelledby="learningInfoTitle">
+  <header>
+    <div class="learning-info-heading">
+      <p>Informasi Pembelajaran</p>
+      <h2 id="learningInfoTitle"></h2>
+      <p id="learningInfoMission"></p>
+    </div>
+    <button id="learningInfoClose" type="button" aria-label="Tutup informasi pembelajaran" autofocus>×</button>
+  </header>
+  <div id="learningInfoContent" class="learning-info-content"></div>
+</dialog>
+</main><script src="learning-info.js"></script><script src="script.js"></script>
+</body></html>
+
+

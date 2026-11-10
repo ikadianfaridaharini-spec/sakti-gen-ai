@@ -1,0 +1,21 @@
+PANDUAN UJI SAKTI GEN-AI
+
+Buka index.html melalui Chrome atau Edge. Internet diperlukan untuk font Google dan video YouTube. Gambar serta audio memakai aset lokal.
+
+1. Di opening, tekan Musik OFF: musik harus langsung berbunyi dan tombol menjadi Musik ON. Tekan lagi untuk mematikan.
+2. Tekan Layar penuh, lalu Keluar layar penuh atau Esc. Dukungan bergantung browser/perangkat.
+3. Tekan MULAI PETUALANGAN: menu langsung tampil, sapaan SAGI berbunyi jika Suara ON.
+4. Coba kelima pilihan menu dan tombol Kembali ke menu. Coba Sapa SAGI serta Suara OFF.
+5. Saat musik aktif, buka VIDEO SAGI. Musik harus berhenti sementara. Tekan Play pada video. Jika tidak tampil, gunakan tautan YouTube. Kembali ke menu: video berhenti dan musik melanjutkan jika Musik ON.
+6. Coba ukuran jendela kecil, ponsel portrait dan landscape, serta mouse/sentuhan. Area menu dan informasi dapat digulir jika layar sempit.
+7. Kembali ke pembuka dan coba mulai lagi.
+
+STATUS
+Opening serta struktur menu lama dipertahankan dan disempurnakan. Semua aset asli tetap tersedia tanpa diganti nama atau diedit. YUK BELAJAR dan PETA masih pengenalan, bukan permainan. Pengembang belum memiliki identitas/kontak. Belum ada evaluasi misi, bintang, penyimpanan hasil, jurnal, atau dashboard.
+
+RANCANGAN LANJUTAN (BELUM DITERAPKAN)
+Hasil permainan: identitas anak, misi, tanggal/waktu, percobaan, hasil evaluasi, dan bintang.
+Jurnal harian terpisah: identitas anak, tanggal, tujuh laporan kebiasaan, pelapor, catatan, status validasi guru, guru pemeriksa, waktu validasi, dan umpan balik. Rekap guru/orang tua harus berdasarkan laporan yang benar-benar diisi. Tidak menganggap skor game sebagai bukti kebiasaan harian.
+
+PEMERIKSAAN
+Pemeriksaan sintaks JavaScript dan simulasi alur tombol lulus, termasuk musik sebelum mulai, jeda musik saat video, kembali dari kelima halaman, penghentian suara, permintaan/keluar fullscreen, dan rujukan aset. Simulasi tidak membuktikan suara benar-benar terdengar, tampilan sempurna di semua layar, atau video dapat diputar. Semua itu perlu uji langsung di browser. Tidak ada autoplay sebelum interaksi pengguna, dan tidak memakai speech synthesis.
